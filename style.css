@@ -1,0 +1,61 @@
+const storyElement = document.getElementById("story");
+const buttonsElement = document.getElementById("buttons");
+
+const storyNodes = [
+  {
+    text: "Você é um criador digital em uma missão para proteger suas obras. Está pronto?",
+    options: [
+      { text: "Sim, vamos lá!", next: 1 },
+      { text: "Não, estou com medo...", next: 99 }
+    ]
+  },
+  {
+    text: "Primeira missão: Você percebe que alguém copiou seu vídeo. O que fazer?",
+    options: [
+      { text: "Enviar denúncia de copyright", next: 2 },
+      { text: "Ignorar", next: 99 }
+    ]
+  },
+  {
+    text: "Parabéns! Você agiu rápido. Quer aprender estratégias para evitar isso no futuro?",
+    options: [
+      { text: "Sim, quero o guia", next: 3 },
+      { text: "Não, já sei o bastante", next: 99 }
+    ]
+  },
+  {
+    text: "Clique no botão abaixo para acessar o Guia Rápido de Copyright para Criadores Digitais.",
+    options: [
+      { text: "📕 Baixar Guia", link: "https://assets.api.gamma.app/export/pdf/7u4lvo9dtamwrm8/9d031499d60595a70e636de66f49b648/Proteja-Seu-Conteudo-Guia-Rapido-de-Copyright-para-Criadores-Digitais.pdf" }
+    ]
+  },
+  {
+    text: "Missão encerrada.",
+    options: []
+  }
+];
+
+function startGame() {
+  showNode(0);
+}
+
+function showNode(index) {
+  const node = storyNodes[index];
+  storyElement.innerText = node.text;
+  buttonsElement.innerHTML = "";
+
+  node.options.forEach(option => {
+    const button = document.createElement("button");
+    button.innerText = option.text;
+    button.onclick = () => {
+      if (option.link) {
+        window.open(option.link, "_blank");
+      } else {
+        showNode(option.next);
+      }
+    };
+    buttonsElement.appendChild(button);
+  });
+}
+
+startGame();
